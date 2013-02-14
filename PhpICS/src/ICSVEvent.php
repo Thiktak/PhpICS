@@ -105,8 +105,8 @@ Class ICSVEvent extends ICSObjects {
     
         // VEvent parser
 
-        $event = new ICSVEvent();
-        preg_replace_callback('`^[[:blank:]]*([A-Z]+):(.*)$`miU', function($m2) use(&$doc, $event) {
+        $event = new ICSVEvent($matche[1]);
+        $r = preg_replace_callback('`^[[:blank:]]*([A-Z]+):(.*)$`miU', function($m2) use(&$doc, $event) {
           $m2[2] = trim($m2[2]);
           switch($m2[1]) {
             case 'DTSTAMP' :
@@ -122,10 +122,8 @@ Class ICSVEvent extends ICSObjects {
           }
         }, $matche[1]);
         $doc->addChildren($event);
-        return null;
-        
-        // /VEvent
 
+        return null;
     }, $content);
   }
 
@@ -138,9 +136,11 @@ Class ICSVEvent extends ICSObjects {
         $return[] = '  ' . strtoupper($name) . ':' . trim($value);
     }
 
+    foreach( $this->getChildren() as $event ) {
+      $return[] = '  ' . implode(PHP_EOL . '  ', explode(PHP_EOL, $event->save()));
+    }
+
     $return[] = 'END:VEVENT';
-
-
 
     return '  ' . implode(PHP_EOL . '  ', $return);
   }

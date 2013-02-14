@@ -11,14 +11,12 @@ Class ICS extends ICSObjects {
 
   protected $document;
 
+  protected $children = array();
+  protected $parsers = array('ICSVCalendar');
+
   public function __construct($content, $filename = null) {
     $this->filename = $filename;
-
-    $this->document = new ICSVCalendar($content);
-  }
-
-  public function getIterator() {
-    return $this->document->getIterator();
+    $this->content = $content;
   }
 
   public static function load($content, $filename = null) {
@@ -32,14 +30,21 @@ Class ICS extends ICSObjects {
     return self::load($content, $filename);
   }
 
-  public function parse() {
-    return $this->document->parse();
+  public function getIterator() {
+    if( $this->children )
+      return current($this->children)->getIterator();
+    return new ArrayIterator();
   }
 
   public static function parseObject(ICSObjects $doc, $content) {
   }
 
   public function saveObject() {
-    return $this->document->saveObject();
+    $return = '';
+
+    foreach( $this->getChildren() as $event ) {
+      $return .= $event->save() . PHP_EOL;
+    }
+    return $return;
   }
 }

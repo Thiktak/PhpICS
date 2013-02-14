@@ -13,7 +13,7 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
   protected $parsers = array();
 
   public function __construct($content = null) {
-    $this->content = $content;
+    $this->content = trim($content);
   }
 
   public function getIterator() {
@@ -22,6 +22,10 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
 
   public function getChildren() {
     return (array) $this->children;
+  }
+
+  public function getChild($index) {
+    return $this->children[$index];
   }
 
   public function addChildren(ICSObjects $child) {
@@ -34,13 +38,14 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
 
   public function parse() {
     $content = $this->content;
-
+    //echo 'START ', get_class($this), PHP_EOL;
     foreach( (array) $this->parsers as $parser ) {
       // @TODO if( $parser instanceof ICSObject )
+      //echo 'SINCE ', get_class($this), ' -> ', $parser, '::parseObject(*, @', strlen($content), 'c)', PHP_EOL;
       $content = $parser::parseObject($this, $content);
     }
 
-    return $this;
+    return $content;
   }
 
   public function save($filename = null) {
