@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * ICSVEvent
+ * 
+ * @author Olivarès Georges <dev@olivares-georges.fr>
+ *
+ */
 Class ICSVEvent extends ICSObjects {
   protected $dtstamp;
   protected $dtstart;
@@ -94,7 +100,7 @@ Class ICSVEvent extends ICSObjects {
     );
   }
 
-  public static function parseObject(ICSDocument $doc, $content) {
+  public static function parseObject(ICSObjects $doc, $content) {
     return preg_replace_callback('`[[:space:]]*BEGIN:VEVENT(.*)END:VEVENT`sUi', function($matche) use(&$doc) {
     
         // VEvent parser
@@ -127,12 +133,9 @@ Class ICSVEvent extends ICSObjects {
     $return = array();
     $return[] = 'BEGIN:VEVENT';
 
-    $r = new ReflectionClass($this);
-
-    foreach( $r->getProperties() as $property ) {
-      $property->setAccessible(true);
-      if( $property->getValue($this) !== null && !is_array($property->getValue($this)) )
-        $return[] = '  ' . strtoupper($property->getName()) . ':' . trim($property->getValue($this));
+    foreach( $this->getDatas() as $name => $value ) {
+      if( $value !== null && !is_array($value) )
+        $return[] = '  ' . strtoupper($name) . ':' . trim($value);
     }
 
     $return[] = 'END:VEVENT';
