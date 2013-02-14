@@ -30,7 +30,7 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
 
   public function addChildren(ICSObjects $child) {
     if( !is_array($this->children) )
-        throw new Exception('You can\'t attach children into this node');
+        throw new ICSException('You can\'t attach children into this node');
 
     $this->children[] = $child;
     return $this;
@@ -38,10 +38,10 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
 
   public function parse() {
     $content = $this->content;
-    //echo 'START ', get_class($this), PHP_EOL;
     foreach( (array) $this->parsers as $parser ) {
-      // @TODO if( $parser instanceof ICSObject )
-      //echo 'SINCE ', get_class($this), ' -> ', $parser, '::parseObject(*, @', strlen($content), 'c)', PHP_EOL;
+      if( $parser instanceof ICSObject )
+        throw new ICSException('Child object must be instance of ICSObject');
+
       $content = $parser::parseObject($this, $content);
     }
 
