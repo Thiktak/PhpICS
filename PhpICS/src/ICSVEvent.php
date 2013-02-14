@@ -100,6 +100,10 @@ Class ICSVEvent extends ICSObjects {
     );
   }
 
+  /**
+   * parseObject
+   * @Override
+   */
   public static function parseObject(ICSObjects $doc, $content) {
     return preg_replace_callback('`[[:space:]]*BEGIN:VEVENT(.*)END:VEVENT`sUi', function($matche) use(&$doc) {
     
@@ -127,6 +131,10 @@ Class ICSVEvent extends ICSObjects {
     }, $content);
   }
 
+  /**
+   * saveObject
+   * @override
+   */
   public function saveObject() {
     $return = array();
     $return[] = 'BEGIN:VEVENT';
