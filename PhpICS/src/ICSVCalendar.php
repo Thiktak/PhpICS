@@ -12,8 +12,6 @@ Class ICSVCalendar extends ICSObjects {
   protected $parsers = array('ICSVEvent');
 
   protected $version;
-  protected $prodid;
-
   protected $method;
   protected $calscale;
 
@@ -47,7 +45,6 @@ Class ICSVCalendar extends ICSObjects {
       'version' => $this->version,
       'method' => $this->method,
       'calscale' => $this->calscale,
-      'prodid' => $this->prodid,
     );
   }
 
