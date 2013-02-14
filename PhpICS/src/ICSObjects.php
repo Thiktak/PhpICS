@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * ICSObjects
+ * 
+ * @author Olivarès Georges <dev@olivares-georges.fr>
+ *
+ */
 abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
 
   protected $children;
+  protected $content;
   protected $parsers = array();
-  
+
+  public function __construct($content = null) {
+    $this->content = $content;
+  }
 
   public function getIterator() {
     return new ArrayObject((array) $this->children);
@@ -23,11 +33,11 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
   }
 
   public function parse() {
+    $content = $this->content;
 
     foreach( (array) $this->parsers as $parser ) {
       // @TODO if( $parser instanceof ICSObject )
-
-      $this->content = $parser::parseObject($this, $this->content);
+      $content = $parser::parseObject($this, $content);
     }
 
     return $this;
@@ -41,6 +51,16 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
       file_put_contents($filename, $content);
 
     return $content;
+  }
+
+
+  public function __set($name, $value) {
+    if( !is_array($this->{strtolower($name)}) )
+      $this->{strtolower($name)} = $value;
+  }
+
+  public function __toString() {
+    return (String) $this->save(null);
   }
 }
 
