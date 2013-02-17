@@ -28,12 +28,22 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
     return $this->children[$index];
   }
 
-  public function addChildren(ICSObjects $child) {
+  public function addChildren($child) {
+
+    if( is_string($child) ) {
+      $class = 'ICSV' . $child;
+      if( class_exists($class) )
+        $child = new $class();
+    }
+
     if( !is_array($this->children) )
         throw new ICSException('You can\'t attach children into this node');
 
+    if( !($child instanceof ICSObjects) )
+        throw new ICSException('Argument 1 passed to ICSObjects::addChildren() must be an instance of ICSObjects');
+
     $this->children[] = $child;
-    return $this;
+    return $child;
   }
 
   public function parse() {
