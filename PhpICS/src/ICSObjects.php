@@ -40,7 +40,7 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
     $content = $this->content;
     foreach( (array) $this->parsers as $parser ) {
       if( $parser instanceof ICSObject )
-        throw new ICSException('Child object must be instance of ICSObject');
+        throw new ICSException('Child object must be an instance of ICSObject');
 
       $content = $parser::parseObject($this, $content);
     }
