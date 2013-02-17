@@ -56,7 +56,9 @@ Class ICS extends ICSObjects {
    * @return ICS
    */
   public static function open($filename) {
-    // @TODO if file exists
+    if( !file_exists($filename) )
+      throw new ICSException(sprintf('failed to open stream: No such file `%s`', $filename));
+
     $content = file_get_contents($filename);
     return self::load($content, $filename);
   }
