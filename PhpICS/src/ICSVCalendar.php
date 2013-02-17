@@ -40,6 +40,14 @@ Class ICSVCalendar extends ICSObjects {
     return $this;
   }
 
+  public function getProdid() {
+    return $this->prodid;
+  }
+  public function setProdid($prodid) {
+    $this->prodid = $prodid;
+    return $this;
+  }
+
   public function getDatas() {
     // @TODO find simple $this[protected:] export
     return array(
