@@ -3,11 +3,11 @@
 // We work with date ... so :
 date_default_timezone_set('Europe/paris');
 
+include 'PhpICS/ICS/index.php';
 
-include 'PhpICS/src/index.php';
 
 try {
-  $icalc = ICS::open('test.ics');
+  $icalc = ICS\ICS::open('test.ics');
 
   foreach( $icalc as $event ) {
     echo $event->getDateStart('Y-m-d H:i:s'), ' - ', $event->getSummary();
@@ -27,7 +27,7 @@ try {
 
   // Create Event with addChildren(ICSVEvent $object)
 
-  $event = $icalc->getCalendar()->addChildren(new ICSVEvent());
+  $event = $icalc->getCalendar()->addChildren(new ICS\Element\Event());
   $event->setDateStart(new \DateTime(null));
   $event->setSummary('Event 1');
 

@@ -1,12 +1,14 @@
 <?php
 
+namespace ICS;
+
 /**
  * ICSObjects
  * 
  * @author Olivarès Georges <dev@olivares-georges.fr>
  *
  */
-abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
+abstract class Objects implements iObjects, \IteratorAggregate {
 
   protected $children;
   protected $content;
@@ -17,7 +19,7 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
   }
 
   public function getIterator() {
-    return new ArrayObject((array) $this->children);
+    return new \ArrayObject((array) $this->children);
   }
 
   public function getChildren() {
@@ -31,16 +33,16 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
   public function addChildren($child) {
 
     if( is_string($child) ) {
-      $class = 'ICSV' . $child;
+      $class = 'ICS\\Element\\' . $child;
       if( class_exists($class) )
         $child = new $class();
     }
 
     if( !is_array($this->children) )
-        throw new ICSException('You can\'t attach children into this node');
+        throw new Exception('You can\'t attach children into this node');
 
-    if( !($child instanceof ICSObjects) )
-        throw new ICSException('Argument 1 passed to ICSObjects::addChildren() must be an instance of ICSObjects');
+    if( !($child instanceof Objects) )
+        throw new Exception('Argument 1 passed to ICSObjects::addChildren() must be an instance of ICSObjects');
 
     $this->children[] = $child;
     return $child;
@@ -49,8 +51,9 @@ abstract class ICSObjects implements ICSiObjects, IteratorAggregate {
   public function parse() {
     $content = $this->content;
     foreach( (array) $this->parsers as $parser ) {
-      if( $parser instanceof ICSObject )
-        throw new ICSException('Child object must be an instance of ICSObject');
+      $parser = 'ICS\\Element\\' . $parser;
+      if( !is_subclass_of($parser, 'ICS\\Objects') )
+        throw new Exception(sprintf('Child `%s` object must be an instance of ICS\\Objects', $parser));
 
       $content = $parser::parseObject($this, $content);
     }

@@ -1,15 +1,18 @@
 <?php
 
+namespace ICS\Element;
+use ICS\Objects;
+
 /**
  * ICSVDocument
  * 
  * @author Olivarès Georges <dev@olivares-georges.fr>
  *
  */
-Class ICSVCalendar extends ICSObjects {
+Class Calendar extends Objects {
 
   protected $children = array();
-  protected $parsers = array('ICSVEvent');
+  protected $parsers = array('Event');
 
   protected $version;
   protected $prodid;
@@ -58,10 +61,10 @@ Class ICSVCalendar extends ICSObjects {
     );
   }
 
-  public static function parseObject(ICSObjects $doc, $content) {
+  public static function parseObject(Objects $doc, $content) {
     return preg_replace_callback('`BEGIN:VCALENDAR(.*)END:VCALENDAR`sUi', function($matche) use(&$doc) {
         
-        $entity = new ICSVCalendar($matche[1]);
+        $entity = new self($matche[1]);
         // sub `begin:`
         $matche[1] = $entity->parse();
 

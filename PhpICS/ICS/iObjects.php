@@ -1,13 +1,15 @@
 <?php
 
+namespace ICS;
+
 /**
- * ICSiObjects
+ * iObjects
  * 
  * @author Olivarès Georges <dev@olivares-georges.fr>
  *
  */
-Interface ICSiObjects {
-  public static function parseObject(ICSObjects $doc, $content);
+Interface iObjects {
+  public static function parseObject(Objects $doc, $content);
   public function saveObject();
 }
 

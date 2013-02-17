@@ -1,12 +1,14 @@
 <?php
 
+namespace ICS;
+
 /**
  * ICSDateTime
  * 
  * @author Olivarès Georges <dev@olivares-georges.fr>
  *
  */
-Class ICSDateTime extends \DateTime {
+Class DateTime extends \DateTime {
 
   public function __construct($time, \DateTimeZone $timezone = null) {
 

@@ -1,12 +1,14 @@
 <?php
 
+namespace ICS;
+
 /**
  * ICS
  * 
  * @author Olivarès Georges <dev@olivares-georges.fr>
  *
  */
-Class ICS extends ICSObjects {
+Class ICS extends Objects {
   /**
    * string $filename
    *  Name of the file
@@ -29,7 +31,7 @@ Class ICS extends ICSObjects {
    * string[] $parsers
    *  List of ICSObjects available with this Object
    */
-  protected $parsers = array('ICSVCalendar');
+  protected $parsers = array('Calendar');
 
 
 
@@ -84,7 +86,7 @@ Class ICS extends ICSObjects {
     return null;
   }
 
-  public static function parseObject(ICSObjects $doc, $content) {
+  public static function parseObject(Objects $doc, $content) {
   }
 
 
