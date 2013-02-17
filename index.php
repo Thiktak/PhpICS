@@ -8,6 +8,7 @@ include 'PhpICS/ICS/index.php';
 
 try {
   $icalc = ICS\ICS::open('test.ics');
+//$icalc = ICS\ICS::load( file_get_contents('test.ics') );
 
   foreach( $icalc as $event ) {
     echo $event->getDateStart('Y-m-d H:i:s'), ' - ', $event->getSummary();
