@@ -51,6 +51,28 @@
 <span class="k">echo</span> <span class="s1">'&lt;pre&gt;'</span><span class="p">,</span> <span class="nv">$icalc</span><span class="p">,</span> <span class="s1">'&lt;/pre&gt;'</span><span class="p">;</span>
 </pre></div>
 
+<h3>edit event</h3>
+
+<div class="highlight"><pre><span class="nv">$event</span> <span class="o">=</span> <span class="nv">$icalc</span><span class="o">-&gt;</span><span class="na">getCalendar</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getChild</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// return first child</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">setSummary</span><span class="p">(</span><span class="s1">'test'</span><span class="p">);</span> <span class="c1">// edit Summary</span>
+</pre></div>
+
+<h3>Create event</h3>
+
+<p>object method</p>
+
+<div class="highlight"><pre><span class="nv">$event</span> <span class="o">=</span> <span class="nv">$icalc</span><span class="o">-&gt;</span><span class="na">getCalendar</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">addChildren</span><span class="p">(</span><span class="k">new</span> <span class="nx">ICSVEvent</span><span class="p">());</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">setDateStart</span><span class="p">(</span><span class="k">new</span> <span class="nx">\DateTime</span><span class="p">(</span><span class="k">null</span><span class="p">));</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">setSummary</span><span class="p">(</span><span class="s1">'Event 1'</span><span class="p">);</span>
+</pre></div>
+
+<p>String method</p>
+
+<div class="highlight"><pre><span class="nv">$event</span> <span class="o">=</span> <span class="nv">$icalc</span><span class="o">-&gt;</span><span class="na">getCalendar</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">addChildren</span><span class="p">(</span><span class="s1">'event'</span><span class="p">);</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">setDateStart</span><span class="p">(</span><span class="k">new</span> <span class="nx">\DateTime</span><span class="p">(</span><span class="k">null</span><span class="p">));</span>
+<span class="nv">$event</span><span class="o">-&gt;</span><span class="na">setSummary</span><span class="p">(</span><span class="s1">'Event 2'</span><span class="p">);</span>
+</pre></div>
+
 <p>More infos into the sources</p>
       </section>
       <footer>
