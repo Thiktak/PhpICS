@@ -35,6 +35,12 @@ Class ICS extends ICSObjects {
       return current($this->children)->getIterator();
     return new ArrayIterator();
   }
+  
+  public function getCalendar() {
+    if( $this->children )
+      return current($this->children);
+    return null;
+  }
 
   public static function parseObject(ICSObjects $doc, $content) {
   }
