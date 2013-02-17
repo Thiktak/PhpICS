@@ -39,10 +39,10 @@
 <div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nb">date_default_timezone_set</span><span class="p">(</span><span class="s1">'Europe/Paris'</span><span class="p">);</span>
-<span class="k">include</span> <span class="s1">'PhpICS/src/index.php'</span><span class="p">;</span>
+<span class="k">include</span> <span class="s1">'PhpICS/ICS/index.php'</span><span class="p">;</span>
 
-<span class="nv">$icalc</span> <span class="o">=</span> <span class="nx">ICS</span><span class="o">::</span><span class="na">open</span><span class="p">(</span><span class="s1">'test.ics'</span><span class="p">);</span>
-<span class="c1">// $icalc = ICS::load(file_get_content('test.ics'));</span>
+<span class="nv">$icalc</span> <span class="o">=</span> <span class="nx">ICS\ICS</span><span class="o">::</span><span class="na">open</span><span class="p">(</span><span class="s1">'test.ics'</span><span class="p">);</span>
+<span class="c1">// $icalc = ICS\ICS::load(file_get_content('test.ics'));</span>
 
 <span class="k">foreach</span><span class="p">(</span> <span class="nv">$icalc</span> <span class="k">as</span> <span class="nv">$event</span> <span class="p">)</span> <span class="p">{</span>
   <span class="k">echo</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getDateStart</span><span class="p">(</span><span class="s1">'Y-m-d H:i:s'</span><span class="p">),</span> <span class="s1">' - '</span><span class="p">,</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getSummary</span><span class="p">(),</span> <span class="s1">'&lt;br /&gt;'</span><span class="p">;</span>
@@ -50,6 +50,18 @@
 
 <span class="k">echo</span> <span class="s1">'&lt;pre&gt;'</span><span class="p">,</span> <span class="nv">$icalc</span><span class="p">,</span> <span class="s1">'&lt;/pre&gt;'</span><span class="p">;</span>
 </pre></div>
+
+<h3>list events</h3>
+
+<div class="highlight"><pre><span class="c1">// list childs</span>
+<span class="k">foreach</span><span class="p">(</span> <span class="nv">$icalc</span> <span class="k">as</span> <span class="nv">$event</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="k">echo</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getDateStart</span><span class="p">(),</span> <span class="s1">' '</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getSummary</span><span class="p">(),</span> <span class="s1">' '</span><span class="p">;</span>
+  <span class="k">echo</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getUID</span><span class="p">(),</span> <span class="s1">' '</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>See <strong>Event</strong> paragraph</p>
 
 <h3>edit event</h3>
 
@@ -61,7 +73,7 @@
 
 <p>object method</p>
 
-<div class="highlight"><pre><span class="nv">$event</span> <span class="o">=</span> <span class="nv">$icalc</span><span class="o">-&gt;</span><span class="na">getCalendar</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">addChildren</span><span class="p">(</span><span class="k">new</span> <span class="nx">ICSVEvent</span><span class="p">());</span>
+<div class="highlight"><pre><span class="nv">$event</span> <span class="o">=</span> <span class="nv">$icalc</span><span class="o">-&gt;</span><span class="na">getCalendar</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">addChildren</span><span class="p">(</span><span class="k">new</span> <span class="nx">ICS\Element\Event</span><span class="p">());</span>
 <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">setDateStart</span><span class="p">(</span><span class="k">new</span> <span class="nx">\DateTime</span><span class="p">(</span><span class="k">null</span><span class="p">));</span>
 <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">setSummary</span><span class="p">(</span><span class="s1">'Event 1'</span><span class="p">);</span>
 </pre></div>
@@ -74,6 +86,36 @@
 </pre></div>
 
 <p>More infos into the sources</p>
+
+<h2>Elements</h2>
+
+<h3>Event</h3>
+
+<ul>
+<li>date stamp ( <em>getDateStamp($format = null)</em>, <em>setDateStamp(DateTime $time)</em>)</li>
+<li>date start ( <em>getDateStamp($format = null)</em>, <em>setDateStart(DateTime $time)</em>)</li>
+<li>date end ( <em>getDateEnd($format = null)</em>, <em>setDateEnd(DateTime $time)</em>)</li>
+<li>date created ( <em>getDateCreated($format = null)</em>, <em>setDateCreated(DateTime $time)</em>)</li>
+<li>description ( <em>getDateStamp($format = null)</em>, <em>setDateStart(DateTime $time)</em>)</li>
+<li>summary ...</li>
+<li>sequence ...</li>
+<li>location ...</li>
+<li>uid ...</li>
+</ul><h3>Calendar</h3>
+
+<ul>
+<li>version</li>
+<li>method</li>
+<li>calscale</li>
+<li>prodid</li>
+</ul><h2>Changelog</h2>
+
+<ul>
+<li>v1.1.0 add <strong>namespace</strong>
+</li>
+<li>v1.0.1 refactorized code</li>
+<li>v1.0.0 create PhpICS </li>
+</ul>
       </section>
       <footer>
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
