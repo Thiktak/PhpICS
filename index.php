@@ -14,11 +14,36 @@ foreach( $icalc as $event ) {
 }
 
 echo '<pre>', $icalc, '</pre>';
+
+
+// Edit summary of the first Event
+
+$event = $icalc->getCalendar()->getChild(0);
+$event->setSummary('test');
+
+echo '<pre>', $icalc, '</pre>';
+
+
+// Create Event with addChildren(ICSVEvent $object)
+
+$event = $icalc->getCalendar()->addChildren(new ICSVEvent());
+$event->setDateStart(new \DateTime(null));
+$event->setSummary('Event 1');
+
+
+// Create Event with addChildren('event')
+
+$event = $icalc->getCalendar()->addChildren('event');
+$event->setDateStart(new \DateTime(null));
+$event->setSummary('Event 2');
+
+
+echo '<pre>', $icalc, '</pre>';
+
 // echo $icalc
 // echo $icalc->save();
 
 // $icalc->save(true) save the ICalendar into test.ics
 // $icalc->save('file.ics') save the ICalendar into `file.ics`
-
 
 ?>
