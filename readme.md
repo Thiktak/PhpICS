@@ -74,3 +74,5 @@ More infos into the sources
 * v1.1.0 add **namespace**
 * v1.0.1 refactorized code
 * v1.0.0 create PhpICS 
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ee8f7e97afe4120059749eb24f4cca34 "githalytics.com")](http://githalytics.com/Thiktak/PhpICS)
