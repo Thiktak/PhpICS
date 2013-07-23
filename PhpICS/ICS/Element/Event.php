@@ -120,9 +120,8 @@ Class Event extends Objects {
     return preg_replace_callback('`[[:space:]]*BEGIN:VEVENT(.*)END:VEVENT`sUi', function($matche) use(&$doc) {
     
         // VEvent parser
-
         $event = new self($matche[1]);
-        $r = preg_replace_callback('`^[[:blank:]]*([A-Z]+):(.*)$`miU', function($m2) use(&$doc, $event) {
+        $r = preg_replace_callback('`^[[:blank:]]*([A-Z]+)[;VALUE\=DATE]*:(.*)$`mi', function($m2) use(&$doc, $event) {
           $m2[2] = trim($m2[2]);
           switch($m2[1]) {
             case 'DTSTAMP' :
