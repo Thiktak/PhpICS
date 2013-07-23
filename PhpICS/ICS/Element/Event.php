@@ -73,6 +73,14 @@ Class Event extends Objects {
     return $this;
   }
 
+  public function getSequence() {
+    return $this->sequence;
+  }
+  public function setSequence($sequence) {
+    $this->sequence = $sequence;
+    return $this;
+  }
+
   public function getUID() {
     return $this->uid;
   }
