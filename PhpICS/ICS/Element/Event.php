@@ -26,7 +26,7 @@ Class Event extends Objects {
   }
 
   public function getDateStart($format = null) {
-    return ($format && $this->dtstart instanceof DateTime) ? $this->dtstart->format($format) : $this->dtstart;
+    return ($format && $this->dtstart instanceof \DateTime) ? $this->dtstart->format($format) : $this->dtstart;
   }
   public function setDateStart(\DateTime $date) {
     $this->dtstart = new ICSDateTime($date);
@@ -34,7 +34,7 @@ Class Event extends Objects {
   }
 
   public function getDateEnd($format = null) {
-    return ($format && $this->dtend instanceof DateTime) ? $this->dtend->format($format) : $this->dtend;
+    return ($format && $this->dtend instanceof \DateTime) ? $this->dtend->format($format) : $this->dtend;
   }
   public function setDateEnd(\DateTime $date) {
     $this->dtend = new ICSDateTime($date);
@@ -42,7 +42,7 @@ Class Event extends Objects {
   }
 
   public function getDateCreated($format = null) {
-    return ($format && $this->created instanceof DateTime) ? $this->created->format($format) : $this->created;
+    return ($format && $this->created instanceof \DateTime) ? $this->created->format($format) : $this->created;
   }
   public function setDateCreated(\DateTime $date) {
     $this->dtcreated = new ICSDateTime($date);
@@ -50,7 +50,7 @@ Class Event extends Objects {
   }
 
   public function getDateStamp($format = null) {
-    return ($format && $this->dtstamp instanceof DateTime) ? $this->dtstamp->format($format) : $this->dtstamp;
+    return ($format && $this->dtstamp instanceof \DateTime) ? $this->dtstamp->format($format) : $this->dtstamp;
   }
   public function setDateStamp(\DateTime $date) {
     $this->dtstamp = new ICSDateTime($date);
