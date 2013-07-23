@@ -95,11 +95,11 @@ Class ICS extends Objects {
    * @return string
    */
   public function saveObject() {
-    $return = '';
+    $return = PHP_EOL;
 
     foreach( $this->getChildren() as $event ) {
       $return .= $event->save() . PHP_EOL;
     }
-    return $return;
+    return trim($return, PHP_EOL);
   }
 }
