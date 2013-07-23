@@ -11,14 +11,19 @@ try {
 //$icalc = ICS\ICS::load( file_get_contents('test.ics') );
 
   foreach( $icalc as $event ) {
-    echo $event->getDateStart('Y-m-d H:i:s'), ' - ', $event->getSummary();
+    
+  echo <<<EOL
+<h2>[uid:{$event->getUid()}] at {$event->getDateStart('Y-m-d H:i:s')}</h2>
+<p>{$event->getSummary()}</p>
+
+EOL;
     echo '<br />';
   }
 
   echo '<pre>', $icalc, '</pre>';
 
 
-  // Edit summary of the first Event
+  echo '<h1>Edit summary of the first Event</h1>';
 
   $event = $icalc->getCalendar()->getChild(0);
   $event->setSummary('test');
@@ -26,14 +31,17 @@ try {
   echo '<pre>', $icalc, '</pre>';
 
 
-  // Create Event with addChildren(ICSVEvent $object)
+
+  echo  '<h1>Create Event with addChildren(ICSVEvent $object)</h1>';
 
   $event = $icalc->getCalendar()->addChildren(new ICS\Element\Event());
   $event->setDateStart(new \DateTime(null));
   $event->setSummary('Event 1');
 
+  echo '<pre>', $event, '</pre>';
 
-  // Create Event with addChildren('event')
+
+  echo '<h1>Create Event with addChildren(\'event\')</h1>';
 
   $event = $icalc->getCalendar()->addChildren('event');
   $event->setDateStart(new \DateTime(null));
