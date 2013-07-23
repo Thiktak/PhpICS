@@ -11,14 +11,17 @@ use ICS\DateTime as ICSDateTime;
  *
  */
 Class Event extends Objects {
-  protected $dtstamp;
-  protected $dtstart;
-  protected $dtend;
-  protected $created;
+  protected $dtstamp; // time
+  protected $dtstart; // time
+  protected $dtend;   // time
+  protected $created; // time
   protected $description;
   protected $summary;
   protected $sequence;
   protected $location;
+  protected $categories;
+  protected $status;
+  protected $transp;
   protected $uid;
 
   public function __set($name, $value) {
@@ -73,6 +76,30 @@ Class Event extends Objects {
     return $this;
   }
 
+  public function getCategories() {
+    return $this->categories;
+  }
+  public function setCategories($categories) {
+    $this->categories = $categories;
+    return $this;
+  }
+
+  public function getStatus() {
+    return $this->status;
+  }
+  public function setStatus($status) {
+    $this->status = $status;
+    return $this;
+  }
+
+  public function getTransp() {
+    return $this->transp;
+  }
+  public function setTransp($transp) {
+    $this->transp = $transp;
+    return $this;
+  }
+
   public function getSequence() {
     return $this->sequence;
   }
@@ -109,6 +136,9 @@ Class Event extends Objects {
       'sequence' => $this->sequence,
       'location' => $this->location,
       'uid' => $this->uid,
+      'status' => $this->status,
+      'transp' => $this->transp,
+      'categories' => $this->categories,
     );
   }
 
