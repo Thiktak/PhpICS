@@ -36,6 +36,11 @@ $event = $icalc->getCalendar()->getChild(0); // return first child
 $event->setSummary('test'); // edit Summary
 ```
 
+### Create new calendar
+```php
+$icalc = ICS\ICS::load((new ICS\Element\Calendar())->save());
+```
+
 ### Create event
 object method
 ```php
