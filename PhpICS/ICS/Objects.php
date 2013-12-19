@@ -71,8 +71,16 @@ abstract class Objects implements iObjects, \IteratorAggregate {
       $parser = 'ICS\\Element\\' . $parser;
       if( !is_subclass_of($parser, 'ICS\\Objects') )
         throw new Exception(sprintf('Child `%s` object must be an instance of ICS\\Objects', $parser));
+      
+      // @TODO: To edit
+      $content2 = null;
+      foreach( explode(PHP_EOL, $content) as $line )
+        if( preg_match('`^([A-Z:=]+:)`', trim($line)) )
+          $content2 .= PHP_EOL . trim($line); // single-line prop.
+        else
+          $content2 .= trim($line); // multi-line prop. (\n)
 
-      $content = $parser::parseObject($this, $content);
+      $content = $parser::parseObject($this, trim($content2));
     }
 
     return $content;
