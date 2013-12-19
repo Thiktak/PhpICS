@@ -30,6 +30,23 @@ abstract class Objects implements iObjects, \IteratorAggregate {
     return $this->children[$index];
   }
 
+  public function getMetas() {
+    $metas = array();
+    $rc = new \ReflectionClass($this);
+    foreach( $rc->getProperties() as $var )
+      switch($var->getName()) {
+        case 'children':
+        case 'parsers':
+        case 'content':
+          break;
+        default;
+          $var->setAccessible(true);
+          $metas[$var->getName()] = $var->getValue($this);
+          break;
+      }
+    return $metas;
+  }
+
   public function addChildren($child) {
 
     if( is_string($child) ) {

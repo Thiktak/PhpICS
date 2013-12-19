@@ -89,6 +89,12 @@ Class ICS extends Objects {
   public static function parseObject(Objects $doc, $content) {
   }
 
+  public function getMetas() {
+    if( $this->children )
+      return current($this->children)->getMetas();
+    return null;
+  }
+
 
   /**
    * saveObject
