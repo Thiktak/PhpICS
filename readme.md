@@ -38,7 +38,8 @@ $event->setSummary('test'); // edit Summary
 
 ### Create new calendar
 ```php
-$icalc = ICS\ICS::load((new ICS\Element\Calendar())->save());
+$new_calendar = new ICS\Element\Calendar();
+$icalc = ICS\ICS::load($new_calendar->save());
 ```
 
 ### Create event

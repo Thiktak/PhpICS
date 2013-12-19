@@ -64,7 +64,7 @@ Class Calendar extends Objects {
   public static function parseObject(Objects $doc, $content) {
     return preg_replace_callback('`BEGIN:VCALENDAR(.*)END:VCALENDAR`sUi', function($matche) use(&$doc) {
         
-        $entity = new self($matche[1]);
+        $entity = new \ICS\Element\Calendar($matche[1]);
         // sub `begin:`
         $matche[1] = $entity->parse();
 
