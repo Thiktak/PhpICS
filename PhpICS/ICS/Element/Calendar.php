@@ -12,7 +12,7 @@ use ICS\Objects;
 Class Calendar extends Objects {
 
   protected $children = array();
-  protected $parsers = array('Event', 'Todo');
+  protected $parsers = array('Event', 'Todo', 'Journal');
 
   protected $version;
   protected $prodid;
