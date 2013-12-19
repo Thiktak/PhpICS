@@ -18,6 +18,31 @@ Class Calendar extends Objects {
   protected $prodid;
   protected $method;
   protected $calscale;
+  protected $extended;
+
+  /**
+   * Setup header field from extended set
+   */
+  public function setExtended($field, $value) {
+      $this->extended[$field] = $value;
+  }
+
+  /**
+   * Get array of all extended fields, available in current ICS file
+   */
+  public function getExtended() {
+      if (! $this->extended)
+          $this->extended = array();
+      return $this->extended;
+  }
+
+  public function setName($name) {
+      $extended["X-WR-CALNAME"] = $name;
+  }
+
+  public function setTimezone($value) {
+      $extended["X-WR-TIMEZONE"] = $value;
+  }
 
   public function getVersion() {
     return $this->version;
@@ -64,7 +89,7 @@ Class Calendar extends Objects {
   public static function parseObject(Objects $doc, $content) {
     return preg_replace_callback('`BEGIN:VCALENDAR(.*)END:VCALENDAR`sUi', function($matche) use(&$doc) {
         
-        $entity = new self($matche[1]);
+        $entity = new \ICS\Element\Calendar($matche[1]);
         // sub `begin:`
         $matche[1] = $entity->parse();
 
@@ -86,6 +111,11 @@ Class Calendar extends Objects {
     $return[] = 'BEGIN:VCALENDAR';
 
     foreach( $this->getDatas() as $name => $value ) {
+      if( $value !== null )
+        $return[] = '  ' . strtoupper($name) . ':' . $value;
+    }
+
+    foreach( $this->getExtended() as $name => $value ) {
       if( $value !== null )
         $return[] = '  ' . strtoupper($name) . ':' . $value;
     }

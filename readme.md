@@ -38,7 +38,21 @@ $event->setSummary('test'); // edit Summary
 
 ### Create new calendar
 ```php
-$icalc = ICS\ICS::load((new ICS\Element\Calendar())->save());
+$new_calendar = new ICS\Element\Calendar();
+$icalc = ICS\ICS::load($new_calendar->save());
+```
+
+### Setting/Getting calendar extended fields
+
+```php
+ $new_calendar->setName("Work calendar");
+ $new_calendar->setTimezone("Europe/Athens");
+ 
+ // set description
+ $new_calendar->setExtended("X-WR-CALDESC", "Lorem ipsum");
+ 
+ // Returns raw array of extended fields and values
+ $new_calendar->getExtended();
 ```
 
 ### Create event
