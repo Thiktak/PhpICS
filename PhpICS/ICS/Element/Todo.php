@@ -7,7 +7,7 @@ use ICS\DateTime as ICSDateTime;
 /**
  * Todo
  * 
- * @author Olivarès Georges <dev@olivares-georges.fr>
+ * @author Olivarès Georges <dev@olivares-georges.net>
  *
  */
 Class Todo extends Objects {

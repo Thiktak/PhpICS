@@ -5,7 +5,8 @@ namespace ICS;
 /**
  * ICSObjects
  * 
- * @author Olivarès Georges <dev@olivares-georges.fr>
+ * @author Olivarès Georges <dev@olivares-georges.net>
+ * @contributor @zapad (Github)
  *
  */
 abstract class Objects implements iObjects, \IteratorAggregate {

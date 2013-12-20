@@ -5,7 +5,7 @@ namespace ICS;
 /**
  * iObjects
  * 
- * @author Olivarès Georges <dev@olivares-georges.fr>
+ * @author Olivarès Georges <dev@olivares-georges.net>
  *
  */
 Interface iObjects {

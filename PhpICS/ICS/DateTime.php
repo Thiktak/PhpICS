@@ -5,7 +5,7 @@ namespace ICS;
 /**
  * ICSDateTime
  * 
- * @author Olivarès Georges <dev@olivares-georges.fr>
+ * @author Olivarès Georges <dev@olivares-georges.net>
  *
  */
 Class DateTime extends \DateTime {

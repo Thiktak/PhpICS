@@ -6,7 +6,7 @@ use ICS\Objects;
 /**
  * ICSVDocument
  * 
- * @author Olivarès Georges <dev@olivares-georges.fr>
+ * @author Olivarès Georges <dev@olivares-georges.net>
  *
  */
 Class Calendar extends Objects {

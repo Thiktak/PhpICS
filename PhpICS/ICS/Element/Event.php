@@ -7,7 +7,7 @@ use ICS\DateTime as ICSDateTime;
 /**
  * Event
  * 
- * @author Olivarès Georges <dev@olivares-georges.fr>
+ * @author Olivarès Georges <dev@olivares-georges.net>
  *
  */
 Class Event extends Objects {
