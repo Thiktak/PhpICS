@@ -112,16 +112,16 @@ Class Calendar extends Objects {
 
     foreach( $this->getDatas() as $name => $value ) {
       if( $value !== null )
-        $return[] = '  ' . strtoupper($name) . ':' . $value;
+        $return[] = strtoupper($name) . ':' . $value;
     }
 
     foreach( $this->getExtended() as $name => $value ) {
       if( $value !== null )
-        $return[] = '  ' . strtoupper($name) . ':' . $value;
+        $return[] = strtoupper($name) . ':' . $value;
     }
 
     foreach( $this->getChildren() as $event ) {
-      $return[] = '  ' . implode(PHP_EOL . '  ', explode(PHP_EOL, $event->save()));
+      $return[] = implode(PHP_EOL, explode(PHP_EOL, $event->save()));
     }
 
     $return[] = 'END:VCALENDAR';
