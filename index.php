@@ -50,13 +50,19 @@ EOL;
 
   echo '<pre>', $icalc, '</pre>';
 
-  // echo $icalc
-  // echo $icalc->save();
+  echo '<h1>Outputs</h1>';
 
-  // $icalc->save(true) save the ICalendar into test.ics
-  // $icalc->save('file.ics') save the ICalendar into `file.ics`
+  $indent = true; // <=> $indent = '  ';
+
+  echo '<pre>', $icalc, '</pre>'; // default toString();
+  echo '<pre>', $icalc($indent), '</pre>';
+
+  // Save the ICalendar into `file.ics`
+  // $icalc->save('filename.ics'); // défault $indent=false
+  // $icalc->save('filename.ics', true); // with indent
+  echo '<pre>', $icalc->save(null, $indent), '</pre>';
 }
-catch(ICSException $e) {
+catch(ICS\ICSException $e) {
   echo 'Error : ', $e->getMessage();
 }
 ?>

@@ -107,7 +107,7 @@ abstract class Objects implements iObjects, \IteratorAggregate {
     return $content;
   }
 
-  public function save($filename = null, $indent = true) {
+  public function save($filename = null, $indent = false) {
 
     $content = trim($this->saveObject($indent === true ? '  ' : $indent));
     $content = preg_replace('`^([[:blank:]]*[A-Z]+):([A-Z]+)([:;=])(.*)$`mi', '$1;$2$3$4', $content);
@@ -124,6 +124,11 @@ abstract class Objects implements iObjects, \IteratorAggregate {
   }
 
   public function __toString() {
+    return (String) $this->save(null, true);
+  }
+
+  // auto toString
+  public function __invoke($indent = true) {
     return (String) $this->save(null, true);
   }
 

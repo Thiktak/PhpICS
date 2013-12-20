@@ -92,7 +92,7 @@ Class Calendar extends Objects {
     return $this->genericSaveObject($indent, 'BEGIN:VCALENDAR', 'END:VCALENDAR');
   }
 
-  public function save($filename = null, $indent = true) {
+  public function save($filename = null, $indent = false) {
     if( $filename === true )
       $filename = $this->filename;
 
