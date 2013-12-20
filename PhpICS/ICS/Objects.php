@@ -111,7 +111,7 @@ abstract class Objects implements iObjects, \IteratorAggregate {
   public function save($filename = null, $indent = false) {
 
     $content = trim($this->saveObject($indent === true ? '  ' : $indent));
-    $content = preg_replace('`^([[:blank:]]*[A-Z]+):([A-Z]+)([:;=])(.*)$`mi', '$1;$2$3$4', $content);
+    $content = preg_replace('`^([[:blank:]]*[A-Z]+):([A-Z]+)([;=])(.*)$`mi', '$1;$2$3$4', $content);
 
     if( $filename )
       file_put_contents($filename, $content);
