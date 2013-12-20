@@ -25,7 +25,7 @@ try {
 
       <ul class="tests">
       <?php foreach( scandir('./ics/') as $file ): if( in_array($file, array('.', '..')) ) continue; ?>
-        <li><a href="?file=<?php echo pathinfo(urlencode($file), PATHINFO_FILENAME); ?>"><?php echo $file; ?></a></li>
+        <li><a href="?file=<?php echo pathinfo(urlencode($file), PATHINFO_FILENAME); ?>&amp;indent=<?php echo $get_indent; ?>"><?php echo $file; ?></a></li>
       <?php endforeach; ?>
         <li><a href="?file=<?php echo urlencode($get_file); ?>&amp;indent=<?php echo $get_indent == 1 ? 0 : 1; ?>">[@Indent=<?php echo $get_indent ? 'ON': 'OFF'; ?>]</a></li>
       </ul>
@@ -40,7 +40,7 @@ catch(ICS\ICSException $e) { echo '<div class="alert alert-error">Error : ', $e-
 
       <h1>Output :: <em><?php echo $FILE; ?></em></h1>
       
-      <pre><h2>Generated export for <em><?php echo $FILE; ?></em></h2><code><?php echo $icalc($get_indent); ?></code></pre>
+      <pre><h2>Generated export for <em><?php echo $FILE; ?></em></h2><code><?php echo $icalc ? $icalc($get_indent) : 'Error'; ?></code></pre>
 
       <pre><h2><em><?php echo $FILE; ?></em></h2><code><?php echo file_exists($FILE) ? file_get_contents($FILE) : '404 Not Found'; ?></code></pre>
     </div>
