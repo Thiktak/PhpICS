@@ -117,7 +117,9 @@ More infos into the sources
 ### Alarm
 
 ## Changelog
+* v1.1.1 Fix multi-line ; Add generic save, indent option, VAlarm, VTodo, VJournal and some properties, pull#2, pull#3
 * v1.1.0 add **namespace**
+* v1.0.2 fix #1 REGEX Event.php 
 * v1.0.1 refactorized code
 * v1.0.0 create PhpICS 
 
