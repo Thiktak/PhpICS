@@ -11,6 +11,9 @@ use ICS\DateTime as ICSDateTime;
  *
  */
 Class Todo extends Objects {
+  protected $children = array();
+  protected $parsers = array('Alarm');
+
   protected $dtstamp; // time
   protected $dtstart; // time
   protected $dtend;   // time
@@ -22,6 +25,8 @@ Class Todo extends Objects {
   protected $location;
   protected $status;
   protected $uid;
+  protected $organizer;
+  protected $attendee;
 
   public function __set($name, $value) {
     $this->{strtolower($name)} = $value;
@@ -115,6 +120,22 @@ Class Todo extends Objects {
     return $this;
   }
 
+  public function getOrganizer() {
+    return $this->organizer;
+  }
+  public function setOrganizer($organizer) {
+    $this->organizer = $organizer;
+    return $this;
+  }
+
+  public function getAttendee() {
+    return $this->attendee;
+  }
+  public function setAttendee($attendee) {
+    $this->attendee = $attendee;
+    return $this;
+  }
+
   public function getDatas() {
     // @TODO find simple $this[protected:] export
     return array(
@@ -129,6 +150,8 @@ Class Todo extends Objects {
       'location' => $this->location,
       'uid' => $this->uid,
       'status' => $this->status,
+      'attendee' => $this->attendee,
+      'organizer' => $this->organizer,
     );
   }
 
@@ -141,7 +164,8 @@ Class Todo extends Objects {
     
         // VEvent parser
         $event = new self($matche[1]);
-        $r = preg_replace_callback('`^[[:blank:]]*([A-Z]+)[;VALUE\=DATE]*:(.*)$`mi', function($m2) use(&$doc, $event) {
+        $matche[1] = $event->parse();
+        $r = preg_replace_callback('`^[[:blank:]]*([A-Z]+)[;VALUE\=DATE]*[:;](.*)$`mi', function($m2) use(&$doc, $event) {
           $m2[2] = trim($m2[2]);
           switch($m2[1]) {
             case 'DTSTAMP' :
@@ -166,7 +190,7 @@ Class Todo extends Objects {
    * saveObject
    * @override
    */
-  public function saveObject() {
+  public function saveObject($indent) {
     $return = array();
     $return[] = 'BEGIN:VTODO';
 
@@ -176,7 +200,7 @@ Class Todo extends Objects {
     }
 
     foreach( $this->getChildren() as $event ) {
-      $return[] = '  ' . implode(PHP_EOL . '  ', explode(PHP_EOL, $event->save()));
+      $return[] = '  ' . implode(PHP_EOL . $indent, explode(PHP_EOL, $event->save()));
     }
 
     $return[] = 'END:VTODO';
