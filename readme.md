@@ -39,10 +39,10 @@ $event->setSummary('test'); // edit Summary
 ### Create new calendar
 ```php
 $new_calendar = new ICS\Element\Calendar();
-$new_calendar->setName("Important meetings");
-$new_calendar->setVersion("2.0");
-$new_calendar->setCalscale("Gregorian");
-$new_calendar->setProdid("PhpICS");
+$new_calendar->setName('Important meetings');
+$new_calendar->setVersion('2.0');
+$new_calendar->setCalscale('Gregorian');
+$new_calendar->setProdid('PhpICS');
 
 echo $new_calendar->save();
 ```
