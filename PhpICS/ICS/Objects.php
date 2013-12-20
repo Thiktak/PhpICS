@@ -130,7 +130,7 @@ abstract class Objects implements iObjects, \IteratorAggregate {
 
   // auto toString
   public function __invoke($indent = true) {
-    return (String) $this->save(null, true);
+    return (String) $this->save(null, $indent);
   }
 
 
