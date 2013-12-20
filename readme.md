@@ -19,7 +19,7 @@ foreach( $icalc as $event ) {
 echo '<pre>', $icalc, '</pre>';
 ```
 
-### list events
+### List events
 ```php
 // list childs
 foreach( $icalc as $event ) {
@@ -30,7 +30,7 @@ foreach( $icalc as $event ) {
 ```
 See **Event** paragraph
 
-### edit event
+### Edit event
 ```php
 $event = $icalc->getCalendar()->getChild(0); // return first child
 $event->setSummary('test'); // edit Summary
@@ -39,7 +39,12 @@ $event->setSummary('test'); // edit Summary
 ### Create new calendar
 ```php
 $new_calendar = new ICS\Element\Calendar();
-$icalc = ICS\ICS::load($new_calendar->save());
+$new_calendar->setName("Important meetings");
+$new_calendar->setVersion("2.0");
+$new_calendar->setCalscale("Gregorian");
+$new_calendar->setProdid("PhpICS");
+
+echo $new_calendar->save();
 ```
 
 ### Setting/Getting calendar extended fields
@@ -53,6 +58,9 @@ $icalc = ICS\ICS::load($new_calendar->save());
  
  // Returns raw array of extended fields and values
  $new_calendar->getExtended();
+
+ // Return array of all properties
+ $new_calendar->getMetas();
 ```
 
 ### Create event
@@ -68,6 +76,19 @@ $event = $icalc->getCalendar()->addChildren('event');
 $event->setDateStart(new \DateTime(null));
 $event->setSummary('Event 2');
 ```
+
+### Export .ics
+```php
+$indent = true; // <=> $indent = '  ';
+
+echo $new_calendar; // default toString();
+echo $new_calendar($indent);
+
+$new_calendar->save('filename'); // défault $indent=false
+//$new_calendar->save('filename', true);
+echo $new_calendar->save(null, $indent);
+
+``
 
 More infos into the sources
 
@@ -88,6 +109,12 @@ More infos into the sources
 * method
 * calscale
 * prodid
+
+### Todo
+
+### Journal
+
+### Alarm
 
 ## Changelog
 * v1.1.0 add **namespace**
