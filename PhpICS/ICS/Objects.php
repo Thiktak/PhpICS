@@ -14,6 +14,8 @@ abstract class Objects implements iObjects, \IteratorAggregate {
   protected $content;
   protected $parsers = array();
 
+  protected $extended;
+
   public function __construct($content = null) {
     $this->content = trim($content);
   }
@@ -30,6 +32,22 @@ abstract class Objects implements iObjects, \IteratorAggregate {
     return $this->children[$index];
   }
 
+  /**
+   * Setup header field from extended set
+   */
+  public function setExtended($field, $value) {
+      $this->extended[$field] = $value;
+  }
+
+  /**
+   * Get array of all extended fields, available in current ICS file
+   */
+  public function getExtended() {
+      if (! $this->extended)
+          $this->extended = array();
+      return $this->extended;
+  }
+
   public function getMetas() {
     $metas = array();
     $rc = new \ReflectionClass($this);
@@ -38,6 +56,9 @@ abstract class Objects implements iObjects, \IteratorAggregate {
         case 'children':
         case 'parsers':
         case 'content':
+          break;
+        case 'extended':
+          $metas = array_merge($metas, $this->getExtended());
           break;
         default;
           $var->setAccessible(true);
@@ -86,9 +107,9 @@ abstract class Objects implements iObjects, \IteratorAggregate {
     return $content;
   }
 
-  public function save($filename = null) {
+  public function save($filename = null, $indent = true) {
 
-    $content = trim($this->saveObject());
+    $content = trim($this->saveObject($indent === true ? '  ' : $indent));
     $content = preg_replace('`^([[:blank:]]*[A-Z]+):([A-Z]+)([:;=])(.*)$`mi', '$1;$2$3$4', $content);
 
     if( $filename )
@@ -97,14 +118,38 @@ abstract class Objects implements iObjects, \IteratorAggregate {
     return $content;
   }
 
-
   public function __set($name, $value) {
     if( !is_array($this->{strtolower($name)}) )
       $this->{strtolower($name)} = $value;
   }
 
   public function __toString() {
-    return (String) $this->save(null);
+    return (String) $this->save(null, true);
+  }
+
+
+
+  protected function genericSaveObject($indent, $vBeginTag, $vEndTag) {
+    $return = array();
+    $return[] = $vBeginTag;
+
+    foreach( $this->getDatas() as $name => $value ) {
+      if( $value !== null && !is_array($value) )
+        $return[] = $indent . strtoupper($name) . ':' . trim($value);
+    }
+
+    foreach( $this->getExtended() as $name => $value ) {
+      if( $value !== null )
+        $return[] = $indent . strtoupper($name) . ':' . $value;
+    }
+
+    foreach( $this->getChildren() as $event ) {
+      $return[] = $indent . implode(PHP_EOL . $indent, explode(PHP_EOL, $event->save(null, $indent)));
+    }
+
+    $return[] = $vEndTag;
+
+    return $indent . implode(PHP_EOL, $return);
   }
 }
 

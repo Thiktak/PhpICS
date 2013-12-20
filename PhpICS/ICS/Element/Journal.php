@@ -187,22 +187,8 @@ Class Journal extends Objects {
    * saveObject
    * @override
    */
-  public function saveObject() {
-    $return = array();
-    $return[] = 'BEGIN:VJOURNAL';
-
-    foreach( $this->getDatas() as $name => $value ) {
-      if( $value !== null && !is_array($value) )
-        $return[] = '  ' . strtoupper($name) . ':' . trim($value);
-    }
-
-    foreach( $this->getChildren() as $event ) {
-      $return[] = '  ' . implode(PHP_EOL . '  ', explode(PHP_EOL, $event->save()));
-    }
-
-    $return[] = 'END:VJOURNAL';
-
-    return '  ' . implode(PHP_EOL . '  ', $return);
+  public function saveObject($indent) {
+    return $this->genericSaveObject($indent, 'BEGIN:VJOURNAL', 'END:VJOURNAL');
   }
 
 }

@@ -191,21 +191,7 @@ Class Todo extends Objects {
    * @override
    */
   public function saveObject($indent) {
-    $return = array();
-    $return[] = 'BEGIN:VTODO';
-
-    foreach( $this->getDatas() as $name => $value ) {
-      if( $value !== null && !is_array($value) )
-        $return[] = '  ' . strtoupper($name) . ':' . trim($value);
-    }
-
-    foreach( $this->getChildren() as $event ) {
-      $return[] = '  ' . implode(PHP_EOL . $indent, explode(PHP_EOL, $event->save()));
-    }
-
-    $return[] = 'END:VTODO';
-
-    return '  ' . implode(PHP_EOL . '  ', $return);
+    return $this->genericSaveObject($indent, 'BEGIN:VTODO', 'END:VTODO');
   }
 
 }

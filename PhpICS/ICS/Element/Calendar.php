@@ -18,23 +18,6 @@ Class Calendar extends Objects {
   protected $prodid;
   protected $method;
   protected $calscale;
-  protected $extended;
-
-  /**
-   * Setup header field from extended set
-   */
-  public function setExtended($field, $value) {
-      $this->extended[$field] = $value;
-  }
-
-  /**
-   * Get array of all extended fields, available in current ICS file
-   */
-  public function getExtended() {
-      if (! $this->extended)
-          $this->extended = array();
-      return $this->extended;
-  }
 
   public function setName($name) {
       $extended["X-WR-CALNAME"] = $name;
@@ -105,34 +88,14 @@ Class Calendar extends Objects {
     }, $content);
   }
 
-  public function saveObject() {
-    $return = array();
-
-    $return[] = 'BEGIN:VCALENDAR';
-
-    foreach( $this->getDatas() as $name => $value ) {
-      if( $value !== null )
-        $return[] = '  ' . strtoupper($name) . ':' . $value;
-    }
-
-    foreach( $this->getExtended() as $name => $value ) {
-      if( $value !== null )
-        $return[] = '  ' . strtoupper($name) . ':' . $value;
-    }
-
-    foreach( $this->getChildren() as $event ) {
-      $return[] = '  ' . implode(PHP_EOL . '  ', explode(PHP_EOL, $event->save()));
-    }
-
-    $return[] = 'END:VCALENDAR';
-
-    return implode(PHP_EOL, $return);
+  public function saveObject($indent) {
+    return $this->genericSaveObject($indent, 'BEGIN:VCALENDAR', 'END:VCALENDAR');
   }
 
-  public function save($filename = null) {
+  public function save($filename = null, $indent = true) {
     if( $filename === true )
       $filename = $this->filename;
 
-    return parent::save($filename);
+    return parent::save($filename, $indent);
   }
 }

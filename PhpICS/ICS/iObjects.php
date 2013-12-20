@@ -10,7 +10,7 @@ namespace ICS;
  */
 Interface iObjects {
   public static function parseObject(Objects $doc, $content);
-  public function saveObject();
+  public function saveObject($indent);
 }
 
 ?>
