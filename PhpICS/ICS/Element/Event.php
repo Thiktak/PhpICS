@@ -181,17 +181,25 @@ Class Event extends Objects {
     $return[] = 'BEGIN:VEVENT';
 
     foreach( $this->getDatas() as $name => $value ) {
-      if( $value !== null && !is_array($value) )
-        $return[] = '  ' . strtoupper($name) . ':' . trim($value);
+        if( $value !== null && !is_array($value) ) {
+            if ($name == 'dtstart' || $name == 'dtend') {
+                $return[] = sprintf(
+                    "%s;VALUE=DATE:%s",
+                    strtoupper($name), trim($value)
+                );
+            }
+            else
+                $return[] = strtoupper($name) . ':' . trim($value);
+        }
     }
 
     foreach( $this->getChildren() as $event ) {
-      $return[] = '  ' . implode(PHP_EOL . '  ', explode(PHP_EOL, $event->save()));
+      $return[] = implode(PHP_EOL, explode(PHP_EOL, $event->save()));
     }
 
     $return[] = 'END:VEVENT';
 
-    return '  ' . implode(PHP_EOL . '  ', $return);
+    return implode(PHP_EOL, $return);
   }
 
 }

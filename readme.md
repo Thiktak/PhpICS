@@ -39,7 +39,12 @@ $event->setSummary('test'); // edit Summary
 ### Create new calendar
 ```php
 $new_calendar = new ICS\Element\Calendar();
-$icalc = ICS\ICS::load($new_calendar->save());
+$new_calendar->setName("Important meetings");
+$new_calendar->setVersion("2.0");
+$new_calendar->setCalscale("Gregorian");
+$new_calendar->setProdid("PhpICS");
+ 
+print $new_calendar->save();
 ```
 
 ### Setting/Getting calendar extended fields
