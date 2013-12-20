@@ -75,7 +75,7 @@ abstract class Objects implements iObjects, \IteratorAggregate {
       // @TODO: To edit
       $content2 = null;
       foreach( explode(PHP_EOL, $content) as $line )
-        if( preg_match('`^([A-Z:=]+:)`', trim($line)) )
+        if( preg_match('`^([A-Z:=]+[:;])`', trim($line)) )
           $content2 .= PHP_EOL . trim($line); // single-line prop.
         else
           $content2 .= trim($line); // multi-line prop. (\n)
@@ -88,7 +88,8 @@ abstract class Objects implements iObjects, \IteratorAggregate {
 
   public function save($filename = null) {
 
-    $content = $this->saveObject();
+    $content = trim($this->saveObject());
+    $content = preg_replace('`^([[:blank:]]*[A-Z]+):([A-Z]+)([:;=])(.*)$`mi', '$1;$2$3$4', $content);
 
     if( $filename )
       file_put_contents($filename, $content);
